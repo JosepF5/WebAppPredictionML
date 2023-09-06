@@ -6,12 +6,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCmTVYwJ0w986TYlEh08ZsBbJZ-S0L36lg",
-  authDomain: "hardware-store-18bf4.firebaseapp.com",
-  projectId: "hardware-store-18bf4",
-  storageBucket: "hardware-store-18bf4.appspot.com",
-  messagingSenderId: "234875029958",
-  appId: "1:234875029958:web:4e20b2cad4960fc6860ac7"
+  apiKey: "AIzaSyAX-bOZojSEQfJk-680-JtLsJm-LCcDjJY",
+  authDomain: "webapp-prediction.firebaseapp.com",
+  projectId: "webapp-prediction",
+  storageBucket: "webapp-prediction.appspot.com",
+  messagingSenderId: "737646416362",
+  appId: "1:737646416362:web:39b1411978f944df89e293"
 };
 
 // Initialize Firebase

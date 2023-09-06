@@ -1,34 +1,30 @@
 import { auth } from "../../firebase/app";
 import { useNavigate,Link } from 'react-router-dom';
 import  { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth'; // Importa el método de autenticación adecuado de Firebase
-import "./Login.css";
-
-const Login = ({ setIsAuthenticated }) => {
+import { sendPasswordResetEmail } from 'firebase/auth'; 
+const ResetPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [resetEmailSent, setResetEmailSent] = useState(false);
   const [error, setError] = useState(null);
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    if (name === 'email') {
-      setEmail(value);
-    } else if (name === 'password') {
-      setPassword(value);
-    }
+    setEmail(event.target.value);
   }
 
-  const handleLogin = () => {
-    signInWithEmailAndPassword(auth, email, password)
+  const handleResetPassword = () => {
+    sendPasswordResetEmail(auth, email)
       .then(() => {
         console.log('Inicio de sesión exitoso');
-        setIsAuthenticated(true);
-        navigate('/menu');
+        setResetEmailSent(true);
       })
       .catch((error) => {
         setError(error.message);
       });
+  }
+
+  const handleBack = () => {
+    navigate('/');
   }
 
   return (
@@ -39,7 +35,19 @@ const Login = ({ setIsAuthenticated }) => {
         className="absolute w-full h-full inset-0 z-10 opacity-40"
       />
   <div className="relative z-20 w-64 mx-auto mt-10 p-8 rounded rounded-xl bg-white">
-    <h2 className="text-2xl font-bold mb-4">Iniciar Sesión</h2>
+    {resetEmailSent ? (<>
+        <p>Se ha enviado un correo electrónico de restablecimiento de contraseña a {email}. Revise su bandeja de entrada.</p>
+        <button
+      className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
+      onClick={handleBack}
+    >
+      Volver al inicio
+    </button>
+        </>
+        
+            ) :(
+            <>
+    <h2 className="text-lg font-bold mb-4">Por favor, ingrese su dirección de correo electrónico:</h2>
     <div className="mb-4">
       <input
         type="email"
@@ -50,32 +58,18 @@ const Login = ({ setIsAuthenticated }) => {
         value={email}
       />
     </div>
-    <div className="mb-4">
-      <input
-        type="password"
-        name="password"
-        placeholder="Contraseña"
-        className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-        onChange={handleInputChange}
-        value={password}
-      />
-    </div>
     <button
       className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
-      onClick={handleLogin}
+      onClick={handleResetPassword}
     >
-      Iniciar Sesión
+      Enviar correo de restablecimiento
     </button>
     {error && <p className="text-red-500 mt-2">{error}</p>}
-    <p className="mt-4">
-  <Link to="/reset-password" className="text-blue-500 hover:underline">
-    ¿Olvidaste tu contraseña?
-  </Link>
-</p>
+    </>)}
   </div>
 </div>
 
   );
 }
 
-export default Login;
+export default ResetPassword;
