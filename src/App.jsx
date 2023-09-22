@@ -4,6 +4,8 @@ import Login from './components/login/Login';
 import Menu from './components/Menu/Menu';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import { useState } from 'react';
+import Historico from './components/Historico/Historico';
+import Admin from './components/Admin/Admin';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -13,11 +15,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login setIsAuthenticated={setIsAuthenticated} />}  /> {/* Ruta de inicio de sesión */}
+        <Route path="/" element={<Login setIsAuthenticated={setIsAuthenticated} />}  />
         <Route path="/reset-password" element={<ResetPassword />}  />
         <Route path="/" element={checkAuth()}>
           <Route path="/menu" element={<Menu setIsAuthenticated={setIsAuthenticated}/>} />
-          {/* Otras rutas protegidas aquí */}
+          <Route path="/historico" element={<Historico setIsAuthenticated={setIsAuthenticated}/>} />
+          <Route path="/admin" element={<Admin setIsAuthenticated={setIsAuthenticated}/>} />
         </Route>
       </Routes>
     </BrowserRouter>
