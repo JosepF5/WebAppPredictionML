@@ -133,7 +133,7 @@ const Historico = ({ setIsAuthenticated }) => {
 
   const handleShowAll = () => {
     axios
-      .get("http://localhost:3000/datos")
+      .get("https://efficient-tundra-soap.glitch.me/datos")
       .then((response) => {
         setProducts(response.data);
         setProductsG(response.data);
@@ -148,7 +148,7 @@ const Historico = ({ setIsAuthenticated }) => {
   useEffect(() => {
     // Realiza una solicitud GET a la API de tu servidor
     axios
-      .get("https://backendpredict001.azurewebsites.net/datos")
+      .get("https://efficient-tundra-soap.glitch.me/datos")
       .then((response) => {
         setProducts(response.data);
         setProductsG(response.data);
